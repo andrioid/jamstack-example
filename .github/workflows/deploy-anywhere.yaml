@@ -6,7 +6,7 @@ jobs:
     container:
       image: docker:stable
       volumes:
-        - /home/runner:/workspace
+        - /home/runner/workspace:/workspace
     env:
       IMG_NAME: ${{ github.workflow }}
     steps:
