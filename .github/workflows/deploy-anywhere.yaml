@@ -22,13 +22,14 @@ jobs:
       # Downloads and caches the pack command (the code is open)
       - uses: andrioid/setup-pack@main
       # Attempt to fetch any previous image so that we may use it for caching
-      # - run: docker pull ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} || true
+      - run: docker pull ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} || true
       # Builds your site with buildpacks (heroku builder)
       - run: pack build ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --builder=heroku/buildpacks:20
       # Pushes your new image to Github's Container Registry
       - run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
-      - run: CONTAINER_ID=$(docker create ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}:latest /bin/sh) && docker cp ${CONTAINER_ID}:/workspace/public .
-      - run: ls -alh
+      # Copy the build assets from the container and cleanup
+      - run: CONTAINER_ID=$(docker create ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}:latest /bin/sh) && docker cp ${CONTAINER_ID}:/workspace/public . && docker rm ${CONTAINER_ID}
+      - run: ls -alh public
   # deploy:
   #   needs: remote-build
   #   runs-on: ubuntu-latest
