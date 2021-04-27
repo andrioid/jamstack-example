@@ -31,8 +31,13 @@ jobs:
   deploy:
     needs: remote-build
     runs-on: ubuntu-latest
+    env:
+      IMG_NAME: ${{ github.workflow }}
+
     container:
       # Make sure this matches the other image references
       image: ghcr.io/${{ github.repository }}/${{ github.workflow }}
+      volumes:
+        - /home/runner:/workspace
     steps:
       - run: ls -alh
