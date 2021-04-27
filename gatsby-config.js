@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: "My Gatsby Site",
+    siteUrl: "https://example.com",
   },
   plugins: [
     "gatsby-plugin-react-helmet",
