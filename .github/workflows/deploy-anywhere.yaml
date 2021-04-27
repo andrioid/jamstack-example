@@ -27,8 +27,7 @@ jobs:
       - run: pack build ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --builder=heroku/buildpacks:20 --publish --cache-image=ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
       # Pushes your new image to Github's Container Registry
       #- run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
-      - run: CONTAINER_ID=$(docker create ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} /bin/sh)
-      - run: docker cp $CONTAINER_ID:/workspace/public .
+      - run: CONTAINER_ID=$(docker create ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} /bin/sh) && docker cp ${CONTAINER_ID}:/workspace/public .
       - run: ls -alh
   # deploy:
   #   needs: remote-build
