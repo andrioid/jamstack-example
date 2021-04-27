@@ -6,7 +6,7 @@ jobs:
     container:
       image: docker:stable
       volumes:
-        - /home/runner:/var/www
+        - /home/runner:/workspace
     env:
       IMG_NAME: ${{ github.workflow }}
     steps:
@@ -27,6 +27,7 @@ jobs:
       - run: pack build ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --builder heroku/buildpacks:20
       # Pushes your new image to Github's Container Registry
       - run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
+      - run: ls -alh
   deploy:
     needs: remote-build
     runs-on: ubuntu-latest
