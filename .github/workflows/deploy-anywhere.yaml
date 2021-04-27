@@ -26,7 +26,7 @@ jobs:
       # Builds your site with buildpacks (heroku builder)
       - run: pack build ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}:latest --builder=heroku/buildpacks:20 --publish --cache-image=ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}:latest
       # Pushes your new image to Github's Container Registry
-      #- run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
+      - run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
       - run: CONTAINER_ID=$(docker create ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}:latest /bin/sh) && docker cp ${CONTAINER_ID}:/workspace/public .
       - run: ls -alh
   # deploy:
