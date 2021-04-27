@@ -28,8 +28,9 @@ jobs:
       # Pushes your new image to Github's Container Registry
       - run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
   deploy:
+    needs: remote-build
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/{{ env.GITHUB_REPOSITORY }}/{{ env.IMG_NAME }}
+      image: ghcr.io/${{ env.GITHUB_REPOSITORY }}/${{ env.IMG_NAME }}
     steps:
       - run: ls -alh
