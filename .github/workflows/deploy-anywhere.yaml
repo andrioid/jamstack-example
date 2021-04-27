@@ -8,7 +8,7 @@ jobs:
       volumes:
         - /home/runner:/var/www
     env:
-      IMG_NAME: "jamstack"
+      IMG_NAME: ${{ github.workflow }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -31,6 +31,7 @@ jobs:
     needs: remote-build
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ env.GITHUB_REPOSITORY }}/${{ env.IMG_NAME }}
+      # Make sure this matches the other image references
+      image: ghcr.io/${{ github.repository }}/${{ github.workflow }}
     steps:
       - run: ls -alh
