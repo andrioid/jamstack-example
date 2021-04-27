@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: docker:stable
-      volumes:
-        - /home/runner:/workspace
+      # volumes:
+      #   - /home/runner:/workspace
     env:
       IMG_NAME: ${{ github.workflow }}
     steps:
@@ -22,11 +22,11 @@ jobs:
       # Downloads and caches the pack command (the code is open)
       - uses: andrioid/setup-pack@main
       # Attempt to fetch any previous image so that we may use it for caching
-      - run: docker pull ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} || true
+      # - run: docker pull ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} || true
       # Builds your site with buildpacks (heroku builder)
-      - run: pack build ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --builder heroku/buildpacks:20
+      - run: pack build ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --builder=heroku/buildpacks:20 --publish --cache-image=ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --volume=/home/runner:/workspace
       # Pushes your new image to Github's Container Registry
-      - run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
+      #- run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
       - run: ls -alh
   deploy:
     needs: remote-build
