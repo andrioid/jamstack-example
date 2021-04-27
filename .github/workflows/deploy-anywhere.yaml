@@ -3,10 +3,10 @@ on: [push, pull_request]
 jobs:
   remote-build:
     runs-on: ubuntu-latest
-    container:
-      image: docker:stable
-      # volumes:
-      #   - /home/runner/workspace:/workspace
+    # container:
+    #   image: docker:stable
+    #   volumes:
+    #     - /home/runner/workspace:/workspace
     env:
       IMG_NAME: ${{ github.workflow }}
     steps:
@@ -28,6 +28,7 @@ jobs:
       # Pushes your new image to Github's Container Registry
       #- run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
       - run: ls -alh
+      - run: ls -alh /tmp/deploy
   deploy:
     needs: remote-build
     runs-on: ubuntu-latest
