@@ -24,7 +24,7 @@ jobs:
       # Attempt to fetch any previous image so that we may use it for caching
       # - run: docker pull ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} || true
       # Builds your site with buildpacks (heroku builder)
-      - run: pack build ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --builder=heroku/buildpacks:20 --publish --cache-image=ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --volume=/tmp/deploy:/workspace
+      - run: pack build ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME} --builder=heroku/buildpacks:20 --publish --cache-image=ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
       # Pushes your new image to Github's Container Registry
       #- run: docker push ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}
       - run: ls -alh
