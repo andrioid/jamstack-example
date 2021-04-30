@@ -57,6 +57,7 @@ jobs:
       - run: rclone -v copy public awss3:${BUCKETNAME}
 
   deploy-netlify:
+    needs: remote-build
     name: "Deploy to Netlify"
     runs-on: ubuntu-latest
     steps:
