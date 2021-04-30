@@ -51,4 +51,5 @@ jobs:
           name: public
           path: public
       - run: ls -alh
-      - run: rclone -v copy public spaces
+      - run: rclone ls spaces:.
+      - run: rclone -v copy public spaces:.
