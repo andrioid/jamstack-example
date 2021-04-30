@@ -54,4 +54,4 @@ jobs:
           path: public
       - run: ls -alh
       - run: rclone ls awss3:${BUCKETNAME}
-      - run: rclone -v copy public spaces:${BUCKETNAME}
+      - run: rclone -v copy public awss3:${BUCKETNAME}
