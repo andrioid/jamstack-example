@@ -30,15 +30,22 @@ jobs:
       # Copy the build assets from the container and cleanup
       - run: CONTAINER_ID=$(docker create ghcr.io/${GITHUB_REPOSITORY}/${IMG_NAME}:latest /bin/sh) && docker cp ${CONTAINER_ID}:/workspace/public . && docker rm ${CONTAINER_ID}
       - run: ls -alh public
-  # deploy:
-  #   needs: remote-build
-  #   runs-on: ubuntu-latest
-  #   services:
-  #     assets:
-  #       image: ghcr.io/${{ github.repository }}/${{ github.workflow }}
-  #       volumes:
-  #         - /tmp/assets:/workspace
-  #   env:
-  #     IMG_NAME: ${{ github.workflow }}
-  #   steps:
-  #     - run: ls -alh /tmp/assets
+      - uses: actions/upload-artifact@v2
+        with:
+          name: public
+          path: public/
+
+  deploy-spaces:
+    needs: remote-build
+    runs-on: ubuntu-latest
+    env:
+      RCLONE_CONFIG_SPACES_TYPE: s3
+      RCLONE_CONFIG_SPACES_ACCESS_KEY_ID: ${{ secrets.SPACES_KEY_ID }}
+      RCLONE_CONFIG_SPACES_SECRET_ACCESS_KEY: ${{ secrets.SPACES_SECRET_ACCESS_KEY }}
+      RCLONE_CONFIG_SPACES_ENDPOINT: fra1.digitaloceanspaces.com # yours may differ
+    steps:
+      - uses: NiceLabs/rclone-action@v1
+      - uses: actions/download-artifact@v2
+        with:
+          name: public
+      - run: ls -alh /public
