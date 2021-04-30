@@ -51,4 +51,4 @@ jobs:
           name: public
           path: public
       - run: ls -alh
-      - run: rclone sync public/* spaces
+      - run: rclone -v sync public/* spaces
