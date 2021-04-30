@@ -9,6 +9,7 @@ jobs:
         - /home/runner:/workspace
     env:
       IMG_NAME: ${{ github.workflow }}
+      NODE_ENV: production # Makes this a little more clean on the Node side
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -44,7 +45,7 @@ jobs:
       RCLONE_CONFIG_SPACES_SECRET_ACCESS_KEY: ${{ secrets.SPACES_SECRET_ACCESS_KEY }}
       RCLONE_CONFIG_SPACES_ENDPOINT: fra1.digitaloceanspaces.com # yours may differ
     steps:
-      - uses: NiceLabs/rclone-action@v1
+      - uses: andrioid/setup-rclone-action@main
       - uses: actions/download-artifact@v2
         with:
           name: public
