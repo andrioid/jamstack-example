@@ -44,6 +44,7 @@ jobs:
       RCLONE_CONFIG_SPACES_ACCESS_KEY_ID: ${{ secrets.SPACES_KEY_ID }}
       RCLONE_CONFIG_SPACES_SECRET_ACCESS_KEY: ${{ secrets.SPACES_SECRET_ACCESS_KEY }}
       RCLONE_CONFIG_SPACES_ENDPOINT: fra1.digitaloceanspaces.com # yours may differ
+      SPACES_BUCKETNAME: jamstack.andri.dk
     steps:
       - uses: andrioid/setup-rclone-action@main
       - uses: actions/download-artifact@v2
@@ -51,5 +52,5 @@ jobs:
           name: public
           path: public
       - run: ls -alh
-      - run: rclone ls spaces:.
-      - run: rclone -v copy public spaces:.
+      - run: rclone ls spaces:${SPACES_BUCKETNAME}
+      - run: rclone -v copy public spaces:${SPACES_BUCKETNAME}
