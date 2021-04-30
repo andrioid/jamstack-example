@@ -49,5 +49,6 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: public
-      - run: ls -alh public
+          path: public
+      - run: ls -alh
       - run: rclone sync public spaces
