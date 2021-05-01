@@ -84,3 +84,17 @@ jobs:
         with:
           branch: gh-pages
           folder: public
+  deploy-neocities:
+    needs: remote-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: public
+          path: public
+      - name: Deploy to neocities
+        uses: bcomnes/deploy-to-neocities@v1
+        with:
+          api_token: ${{ secrets.NEOCITIES_API_KEY }}
+          cleanup: false
+          dist_dir: public
