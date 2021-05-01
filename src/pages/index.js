@@ -36,6 +36,16 @@ const IndexPage = () => {
           </li>
           <li>
             <a
+              href="https://jamstack-example.neocities.org/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Neocities
+            </a>{" "}
+            ✔️
+          </li>
+          <li>
+            <a
               href="https://jamstack-example-andri.netlify.app/"
               target="_blank"
               rel="noreferrer"
