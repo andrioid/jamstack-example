@@ -58,7 +58,6 @@ jobs:
 
   deploy-netlify:
     needs: remote-build
-    name: "Deploy to Netlify"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v2
