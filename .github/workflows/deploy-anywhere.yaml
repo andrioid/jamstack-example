@@ -70,3 +70,15 @@ jobs:
           NETLIFY_DEPLOY_TO_PROD: true
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           BUILD_DIRECTORY: public
+  deploy-ghpages:
+    needs: remote-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: public
+          path: public
+      - uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: public
