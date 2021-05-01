@@ -74,6 +74,8 @@ jobs:
     needs: remote-build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2 # needed to setup git
       - uses: actions/download-artifact@v2
         with:
           name: public
