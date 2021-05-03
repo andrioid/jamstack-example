@@ -54,6 +54,16 @@ const IndexPage = () => {
             </a>{" "}
             ✔️
           </li>
+          <li>
+            <a
+              href="https://hostingdemo.andri.dk/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              DigitalOcean VPS via SFTP
+            </a>{" "}
+            ✔️
+          </li>
         </ul>
       </section>
     </main>
