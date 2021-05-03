@@ -113,5 +113,4 @@ jobs:
           name: public
           path: public
       - run: echo "RCLONE_CONFIG_VPS_PASS=$(rclone obscure ${RCLONE_CONFIG_VPS_PASS_PLAIN})" >> $GITHUB_ENV
-      - run: ls -alh
       - run: rclone -v copy public vps:.
