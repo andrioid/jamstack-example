@@ -113,5 +113,5 @@ jobs:
           name: public
           path: public
       - run: ls -alh
-      - run: rclone ls sftp:.
+      - run: rclone ls vps:.
       - run: rclone -v copy public vps:.
