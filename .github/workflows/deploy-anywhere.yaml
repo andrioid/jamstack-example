@@ -113,5 +113,4 @@ jobs:
           name: public
           path: public
       - run: ls -alh
-      - run: rclone ls vps:.
       - run: RCLONE_CONFIG_VPS_PASS=$(rclone obscure ${RCLONE_CONFIG_VPS_PASS}) rclone -v copy public vps:.
