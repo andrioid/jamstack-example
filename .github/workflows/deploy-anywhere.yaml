@@ -98,3 +98,20 @@ jobs:
           api_token: ${{ secrets.NEOCITIES_API_KEY }}
           cleanup: false
           dist_dir: public
+  deploy-via-sftp:
+    needs: remote-build
+    runs-on: ubuntu-latest
+    env:
+      RCLONE_CONFIG_VPS_TYPE: sftp
+      RCLONE_CONFIG_VPS_HOST: ${{ secrets.SFTP_HOST }}
+      RCLONE_CONFIG_VPS_USER: ${{ secrets.SFTP_USER }}
+      RCLONE_CONFIG_VPS_PASS: ${{ secrets.SFTP_PASS }}
+    steps:
+      - uses: andrioid/setup-rclone-action@main
+      - uses: actions/download-artifact@v2
+        with:
+          name: public
+          path: public
+      - run: ls -alh
+      - run: rclone ls sftp:.
+      - run: rclone -v copy public vps:.
